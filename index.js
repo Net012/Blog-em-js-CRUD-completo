@@ -36,7 +36,7 @@ connection.authenticate()
         console.log(error);
     });
 
-//Rotas
+//Controllers
 app.use("/", CategoriesController);
 
 app.use("/", ArticlesController);
@@ -48,14 +48,70 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 
 
-
+//rotas GET
 app.get("/", (req, res) => {
 
-    Article.findAll().then(articles=>{
+    Article.findAll({
+        order: [
+            ["id", "DESC"]
+        ]
+    }).then(articles => {
 
-        res.render("index",{articles:articles});
+        Category.findAll().then(categories => {
+            res.render("index", { articles: articles, categories: categories });
+        });
+    });
+});
 
+app.get("/:slug", (req, res) => {
+    const slug = req.params.slug;
+
+    Article.findOne({
+        where: {
+            slug: slug
+        }
     })
+    .then(article => {
+            if (article == undefined) {
+                res.redirect("/");
+            } else {
+                Category.findAll().then(categories => {
+                    res.render("article", { article: article, categories: categories });
+                });
+            };
+        })
+        .catch((err) => {
+            console.log(err);
+            res.redirect("/");
+        });
+});
 
-    
+app.get("/category/:slug", (req, res)=>{
+
+    const slug = req.params.slug;
+
+    Category.findOne({
+        where: {
+            slug: slug
+        }, include: [{model: Article}]
+    }).then(category =>{
+        if (category == undefined) {
+
+            res.redirect("/");
+
+        } else{
+
+            Category.findAll().then(categories=>{
+
+                res.render("index", {articles: category.articles, categories: categories});
+
+            })
+        }
+    }).catch(err=>{
+
+        console.log(err);
+
+        res.redirect("/");
+
+    });
 });

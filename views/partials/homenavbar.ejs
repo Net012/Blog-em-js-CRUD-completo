@@ -6,11 +6,19 @@
 
     </a>
 
-    <ul class="navbar-nav ml-5 mr-auto">
+    <ul class="navbar-nav mr-auto">
 
-        <li class="nav-item">
+        <li class="nav-item ml-3 ">
             <a class="nav-link" href="/">Home</a>
         </li>
+
+        <% categories.forEach(category => { %>
+            
+            <li class="nav-item ml-3">
+                <a class="nav-link" href="/category/<%= category.slug %> "> <%= category.title %> </a>
+            </li>
+
+            <% })  %>
 
     </ul>
 
