@@ -1,0 +1,51 @@
+<%- include ("../../partials/header.ejs") %>
+    <%- include ("../../partials/navbar.ejs") %>
+
+        <div class="container">
+
+            <h2 class="my-4">Editar artigo</h2>
+
+            <form  method="post" action="/articles/update">
+
+                <input type="hidden" value="<%= article.id %> " name="id" >
+                <label class="my-2" for="title">Digite o título do artigo:</label>
+                <input class="form-control my-2" type="text" name="title" value="<%= article.title %>" >
+                <label class="my-2" for="body">Digite o conteudo do artigo:</label>
+                <textarea class="form-control mb-2" style="resize: none;" name="body" id="article" cols="30" rows="10"></textarea>
+                <label class="mt-2" for="category">Categoria:</label>
+                <select class="form-control my-2" name="category">
+                    <% categories.forEach((category)=>{ %>
+
+                        <% if(category.id == article.categoryId) {%>
+                            <option value="<%= category.id %>" selected > <%= category.title %> </option>
+                            <%} else{%>
+
+                                <option value="<%= category.id %>"> <%= category.title %> </option>
+
+                            <%}%>
+                        <% }) %>
+                </select>
+                <button class=" mt-2 btn btn-outline-success">Atualizar</button>
+
+            </form>
+
+        </div>
+
+        <div id="content" style="display: none">
+            <%= article.body %>
+        </div>
+
+<%- include ("../../partials/footer.ejs") %>
+
+<script src="/tinymce/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+        language: "pt_BR",
+        selector: "#article",
+        plugins: "lists advlist anchor autolink autoresize code codesample image insertdatetime link media preview save table wordcount",
+        toolbar: "anchor code codesample image insertdatetime link media preview save wordcount",
+        init_instance_callback: ()=>{
+            tinymce.get("article").setContent($("#content").text());
+        }    
+    })
+</script>
