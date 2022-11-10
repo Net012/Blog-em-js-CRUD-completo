@@ -4,6 +4,11 @@ const app = express();
 
 const bodyParser = require("body-parser");
 
+//body-parser
+app.use(bodyParser.urlencoded({ extend: false }));
+
+//conexão do BD
+
 const connection = require("./database/database");
 
 //Importanto Controllers
@@ -42,8 +47,7 @@ app.set("view engine", "ejs");
 //Static
 app.use(express.static("public"));
 
-//body-parser
-app.use(bodyParser.urlencoded({ extend: false }));
+
 
 app.get("/", (req, res) => {
     req.send("index");

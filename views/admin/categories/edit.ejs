@@ -1,0 +1,19 @@
+<%- include ("../../partials/header.ejs") %>
+    <%- include ("../../partials/navbar.ejs") %>
+
+        <div class="container">
+
+            <h2 class="my-4">Edição de categoria</h2>
+
+            <form  method="post" action="/categories/update">
+
+                <label for="title">Digite o novo título da categoria:</label>
+                <input type="hidden" name="id" value="<%= category.id %>">
+                <input class="form-control" type="text" name="title" value="<%= category.title %>" >
+                <button class=" mt-4 btn btn-outline-success">Editar</button>
+
+            </form>
+
+        </div>
+
+<%- include ("../../partials/footer.ejs") %>
