@@ -22,33 +22,43 @@
                 <tbody>
 
                     <% articles.forEach(article=>{ %>
-                        <td> <%= article.id %> </td>
-                        <td> <%= article.title %> </td>
-                        <td> <%= article.category.title %> </td>
-                        <td>
-                            <a href="/admin/articles/edit/<%= article.id %>" class="btn btn-outline-secondary">Editar</a>
-                                <form method="post" action="/articles/delete" onsubmit="confDel(event, this)" style="display: inline;" >
+                        <tr>
+                            <td>
+                                <%= article.id %>
+                            </td>
+                            <td>
+                                <%= article.title %>
+                            </td>
+                            <td>
+                                <%= article.category.title %>
+                            </td>
+                            <td>
+                                <a href="/admin/articles/edit/<%= article.id %>"
+                                    class="btn btn-outline-secondary">Editar</a>
+                                <form method="post" action="/articles/delete" onsubmit="confDel(event, this)"
+                                    style="display: inline;">
                                     <input type="hidden" name="id" value="<%= article.id %>">
                                     <button class="btn btn-danger">Deletar</button>
                                 </form>
-                        </td>
-                  <% }) %>
+                            </td>
+                        </tr>
+                        <% }) %>
 
                 </tbody>
-                
+
             </table>
 
         </div>
 
 
-<%- include ("../../partials/footer.ejs") %>
+        <%- include ("../../partials/footer.ejs") %>
 
-<script>
-    function confDel(event, form) {
-         event.preventDefault()
-         const decision = confirm("Voce realmente deseja deletar este artigo?")
-         if (decision) {
-            form.submit();
-         }
-    }
-</script>
+            <script>
+                function confDel(event, form) {
+                    event.preventDefault()
+                    const decision = confirm("Voce realmente deseja deletar este artigo?")
+                    if (decision) {
+                        form.submit();
+                    }
+                }
+            </script>

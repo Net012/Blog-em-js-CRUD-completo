@@ -50,5 +50,12 @@ app.use(express.static("public"));
 
 
 app.get("/", (req, res) => {
-    req.send("index");
+
+    Article.findAll().then(articles=>{
+
+        res.render("index",{articles:articles});
+
+    })
+
+    
 });

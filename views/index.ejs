@@ -1,0 +1,41 @@
+<%- include ("partials/header.ejs") %>
+    <%- include ("partials/homenavbar.ejs") %>
+
+        <h2>Olá Mundo!</h2>
+
+        <div class="container mt-5">
+
+            <div class="mt-4 px-5 pt-4 pb-2 bg-secondary text-white rounded">
+                <h1 class="mb-5 mt-2 " >Bem vindo!</h1>
+                <h3 class="mb-3" >Este é um simples blog construido por um aluno de ADS</h3>
+                <h5 class="mb-5" >Venha me conhecer um pouco:</h5>
+                <div class="my-2" >
+
+                    <a target="_blank" href="https://www.linkedin.com/in/josepneto03/"><p class="btn btn-success" >Link do meu linkedin</p></a>
+
+                    <a target="_blank" class="ml-3" href="https://github.com/Net012/Blog-em-js-CRUD-completo"><p class="btn btn-info" >Link do projeto</p></a>
+                    
+                </div>
+                
+              </div>
+
+            <% articles.forEach(article=>{ %>
+                
+                <div class="card my-3 ">
+
+                    <div class="card-header">
+
+                        <h2> <%= article.title %> </h2>
+
+                    </div>
+
+                    <div class="card-body">
+                        <a href="#" class="btn btn-outline-primary">Ler artigo</a>
+                    </div>
+
+                </div>
+
+                <% }) %>
+        </div>
+
+        <%- include ("partials/footer.ejs") %>
