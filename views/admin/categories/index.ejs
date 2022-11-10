@@ -22,9 +22,9 @@
 
                     <% categories.forEach(category =>{ %>
                         <tr>
-                            <th><%= category.id %></th>
-                            <th><%= category.title %></th>
-                            <th>
+                            <td><%= category.id %></td>
+                            <td><%= category.title %></td>
+                            <td>
                                 <a href="/admin/categories/edit/<%= category.id %>" class="btn btn-outline-secondary">Editar</a>
 
                                 <form method="post" action="/categories/delete" onsubmit="confDel(event, this)" style="display: inline;" >
@@ -33,7 +33,7 @@
                                 </form>
 
                                 
-                            </th>
+                            </td>
                         </tr>
                     <% }) %>
 
