@@ -2,10 +2,17 @@ const express = require("express")
 
 const app = express();
 
+const session = require("express-session");
+
 const bodyParser = require("body-parser");
 
 //body-parser
 app.use(bodyParser.urlencoded({ extend: false }));
+
+//sessions
+app.use(session({
+    secret: "a1F4gPh7s8V493sDdf", cookie: {maxAge: 240000}
+}))
 
 //conexão do BD
 
@@ -16,10 +23,14 @@ const CategoriesController = require("./categories/CategoriesController");
 
 const ArticlesController = require("./articles/ArticlesController");
 
+const UsersController = require("./user/UserController");
+
 //Importando Models
 const Category = require("./categories/Category");
 
 const Article = require("./articles/Article");
+
+const User = require("./user/User");
 
 const port = 8080;
 
@@ -41,6 +52,8 @@ app.use("/", CategoriesController);
 
 app.use("/", ArticlesController);
 
+app.use("/", UsersController)
+
 //view engine: ejs
 app.set("view engine", "ejs");
 
@@ -49,6 +62,7 @@ app.use(express.static("public"));
 
 
 //rotas GET
+
 app.get("/", (req, res) => {
 
     Article.findAll({
